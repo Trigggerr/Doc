@@ -1,0 +1,681 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <style>
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .cd {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <link href="stylesheets/screen.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/print.css" rel="stylesheet" media="print" />
+      <script src="javascripts/all.js"></script>
+  </head>
+
+  <body class="index" data-languages="[&quot;Curl&quot;]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" alt="Navbar" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="images/logo.png" class="logo" alt="Logo" />
+        <div class="lang-selector">
+              <a href="#" data-language-name="Curl">Curl</a>
+        </div>
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+          </li>
+          <li>
+            <a href="#programmatic-sms" class="toc-h1 toc-link" data-title="Programmatic SMS">Programmatic SMS</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#send-an-sms" class="toc-h2 toc-link" data-title="Send an SMS">Send an SMS</a>
+                  </li>
+                  <li>
+                    <a href="#create-sender-id" class="toc-h2 toc-link" data-title="Create Sender ID">Create Sender ID</a>
+                  </li>
+                  <li>
+                    <a href="#list-sender-id" class="toc-h2 toc-link" data-title="List Sender ID">List Sender ID</a>
+                  </li>
+                  <li>
+                    <a href="#list-all-sms" class="toc-h2 toc-link" data-title="List All SMS">List All SMS</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#batchpack-verify" class="toc-h1 toc-link" data-title="BatchPack Verify">BatchPack Verify</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#create-a-verify-app" class="toc-h2 toc-link" data-title="Create a Verify APP">Create a Verify APP</a>
+                  </li>
+                  <li>
+                    <a href="#send-otp" class="toc-h2 toc-link" data-title="Send OTP">Send OTP</a>
+                  </li>
+                  <li>
+                    <a href="#complete-verification" class="toc-h2 toc-link" data-title="Complete Verification">Complete Verification</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#billing" class="toc-h1 toc-link" data-title="Billing">Billing</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#check-balance" class="toc-h2 toc-link" data-title="Check Balance">Check Balance</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://app.batchpack.co'>Sign Up for a BatchPack Key</a></li>
+            <li><a href='https://github.com/lord/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+        <h1 id='introduction'>Introduction</h1>
+<p>Welcome to the BatchPack API Documentation. Get familiar with our powerful communication APIs and technical resources to help you build your communication solution.</p>
+
+<p>Pick the docs that are right for you. These guides, sample app tutorials, and API reference docs will get you across the deploy line, straight to HTTP 200 OK.</p>
+
+<p>You’ve got an idea in mind. Let’s get it to production.</p>
+<h1 id='authentication'>Authentication</h1>
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">"https://api.batchpack.co/v1/"</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span>
+-H <span class="s2">"apikey: API_KEY"</span>
+</code></pre>
+<blockquote>
+<p>Make sure to keep your <code>Authorization</code> &amp; <code>Api Key</code> save.</p>
+</blockquote>
+
+<p>Before we get started, sign up to BatchPack for free and collect your live API key from the Developer Dashboard. <a href="http://app.batchpack.co">developer portal</a>.</p>
+
+<p>Next, enter your Api Key and Authorization key to your headers - as both the originator and recipient.</p>
+
+<p><code>Api Key</code> &amp;
+<code>Authorization</code></p>
+
+<aside class="notice">
+  You must replace <code>Api Key</code> with your personal API key.
+</aside>
+<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/send_message"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"fromPhoneNumber": "+213456790", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}'</span> <span class="se">\</span>
+-X POST
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">54</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text test conditonal "</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2348107176019"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-15T22:27:39.808Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-15T22:27:39.808Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SM7b6572a2d7334f7ab76cfc85a1638907"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sent"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15107564910"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Using BatchPack&#39;s REST API, you can send outgoing SMS messages from your BatchPack phone number to mobile phones around the globe.</p>
+<h3 id='http-request'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/company/send_message</code></p>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>fromPhoneNumber</td>
+<td>true</td>
+<td>Your BatchPack phone number or senderID</td>
+</tr>
+<tr>
+<td>toPhoneNumber</td>
+<td>true</td>
+<td>The recipient number to receive the sms.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>true</td>
+<td>The body of the sms.</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>false</td>
+<td>Add a url for receving webhook.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+  Remember — BatchPack give you 15 fress SMS
+</aside>
+<h2 id='create-sender-id'>Create Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages"}'</span> <span class="se">\</span>
+-X POST
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"STANBICBANK"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-14T07:32:31.431Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-14T07:32:31.431Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs may be used at no additional cost when sending an SMS to countries that support this feature.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/company/buy_sender_id</code></p>
+<h3 id='url-parameters'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>senderId</td>
+<td>The Alphanumeric sender ID</td>
+</tr>
+<tr>
+<td>comments</td>
+<td>Any thing random</td>
+</tr>
+</tbody></table>
+<h2 id='list-sender-id'>List Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/list_sender_id"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8909887"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FACEBOOK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>Use this endpoint to get all available sender ID</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/company/list_sender_id</code></p>
+
+<p>Description here</p>
+<h2 id='list-all-sms'>List All SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/view_messages/sammykay"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Transaction sms"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2348107176019"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="s2">"http://4a5fe8c3.ngrok.io/v1/agents/wehbook"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-10T16:47:36.073Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-10T16:47:36.073Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SM39eb77bea06e40b09fb7826fc6cfaa68"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"success"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TESTSAAS"</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">48</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Text test conditonal sidekiq"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+256752503147"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-12T20:25:16.072Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-12T20:25:16.072Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMfcd11e63c42e41068f48fa13e22aea4b"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"queued"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2.0"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+18066864491"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>You can use BatchPack&#39;s SMS API to retrieve information of an existing outbound SMS message.</p>
+
+<p>You only need to supply the unique client id that was returned upon creation.</p>
+<h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET https://api.batchpack.co/v1/company/view_messages/:username</code></p>
+<h1 id='batchpack-verify'>BatchPack Verify</h1><h2 id='create-a-verify-app'>Create a Verify APP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/creat_app"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"appname": "Verify App", "comments": "DIGITALOCEAN"}'</span> <span class="se">\</span>
+-X POST
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"app"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DIGITALOCEAN"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"comments"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Verify OTP App"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-16T07:40:04.122Z"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-16T07:40:04.122Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>As part of BatchPack&#39;s account security offerings, the BatchPack Verify API makes it simple to add phone verification to your web and mobile application. It supports codes sent via and SMS. To start working with the API, first create an application with the endpoint below.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/verify/creat_app</code></p>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>appname</td>
+<td>true</td>
+<td>Name of the authentication app on BatchPack</td>
+</tr>
+<tr>
+<td>comments</td>
+<td>true</td>
+<td>Any random.</td>
+</tr>
+</tbody></table>
+
+<aside class="success">
+  BatchPack Help You do anything SMS
+</aside>
+<h2 id='send-otp'>Send OTP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/initiate_otp"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"phone": "9087656788", "countryCode": "+1", "verifyApp": "GOOG"}'</span> <span class="se">\</span>
+-X POST
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2349054225763"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTP sent succesfully"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Description of OTP
+<img src="images/goog.jpeg" alt="Goog" /></p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/verify/initiate_otp</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>phone</td>
+<td>true</td>
+<td>Reciepeint phone number to br verified</td>
+</tr>
+<tr>
+<td>countryCode</td>
+<td>true</td>
+<td>The country code</td>
+</tr>
+<tr>
+<td>verifyApp</td>
+<td>true</td>
+<td>The name of the app to use for verification</td>
+</tr>
+<tr>
+<td>callback</td>
+<td>false</td>
+<td>A POST endpoint to recive the sucess or failure response</td>
+</tr>
+</tbody></table>
+<h2 id='complete-verification'>Complete Verification</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/verify_otp"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"phone": "9087656788", "otp": "39751"}'</span> <span class="se">\</span>
+-X POST
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9054225763"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OTP succesfully verified"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Description about verified OTP</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/verify/verify_otp</code></p>
+<h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/get_balances"</span> <span class="se">\</span>
+-H <span class="s2">"Authorization: AUTH_KEY"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"totalDeposits"</span><span class="p">:</span><span class="w"> </span><span class="mf">5000.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"totalUsed"</span><span class="p">:</span><span class="w"> </span><span class="mf">3074.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currentBalance"</span><span class="p">:</span><span class="w"> </span><span class="mf">1926.0</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"currency"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US Dollar"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"decimalPlaces"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"displaySymbol"</span><span class="p">:</span><span class="w"> </span><span class="s2">"$"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"nameCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"currency.USD"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"displayLabel"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US Dollar ($)"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Check available Balance on your BatchPack&#39;s account</p>
+<h3 id='http-request-8'>HTTP Request</h3>
+<p><code>GET https://api.batchpack.co/v1/verify/creat_app</code></p>
+
+<aside class="success">
+  BatchPack Help You do anything SMS
+</aside>
+<h1 id='errors'>Errors</h1>
+<aside class="notice">
+This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+</aside>
+
+<p>The Kittn API uses the following error codes:</p>
+
+<table><thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>400</td>
+<td>Bad Request -- Your request is invalid.</td>
+</tr>
+<tr>
+<td>401</td>
+<td>Unauthorized -- Your API key is wrong.</td>
+</tr>
+<tr>
+<td>403</td>
+<td>Forbidden -- The request requested is hidden for administrators only.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found -- The specified request could not be found.</td>
+</tr>
+<tr>
+<td>405</td>
+<td>Method Not Allowed -- You tried to access a request with an invalid method.</td>
+</tr>
+<tr>
+<td>406</td>
+<td>Not Acceptable -- You requested a format that isn&#39;t json.</td>
+</tr>
+<tr>
+<td>410</td>
+<td>Gone -- The request requested has been removed from our servers.</td>
+</tr>
+<tr>
+<td>418</td>
+<td>I&#39;m a teapot.</td>
+</tr>
+<tr>
+<td>429</td>
+<td>Too Many Requests -- You&#39;re requesting too many requests! Slow down!</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+</tr>
+<tr>
+<td>503</td>
+<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+</tr>
+</tbody></table>
+
+      </div>
+      <div class="dark-box">
+          <div class="lang-selector">
+                <a href="#" data-language-name="Curl">Curl</a>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>
