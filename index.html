@@ -307,24 +307,24 @@
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</span>
+curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</span>
 -H <span class="s2">"apikey: API_KEY"</span>
 </code></pre>
 <blockquote>
-<p>Make sure to keep your <code>BATCH_KEY</code> &amp; <code>API_KEY</code> save.</p>
+<p>Make sure to keep your <code>BTOKEN</code> &amp; <code>API_KEY</code> save.</p>
 </blockquote>
 
-<p>Before we get started, sign up to BatchPack for free and collect your live API_KEY from the Dashboard. <a href="http://app.batchpack.co">Admin Dashboard</a>.</p>
+<p>Before we get started, sign up to BatchPack for free and collect your live API_KEY from the <a href="http://app.batchpack.co">Dashboard</a>.</p>
 
-<p>Next, enter your Api Key and BATCH_KEY key to your headers - as both the originator and recipient.</p>
+<p>Next, enter your BTOKEN key at the end of your the url</p>
 
 <p><code>API_KEY</code> &amp;
 <code>BTOKEN</code></p>
 
 <aside class="notice">
-  You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials.
+  You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials from your profile page
 </aside>
-<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/company/send_message/BTOKEN"</span> <span class="se">\</span>
+<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/send_message/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"fromPhoneNumber": "+213456790", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}'</span> <span class="se">\</span>
 -X POST
@@ -345,9 +345,9 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
   </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15107564910"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Using BatchPack&#39;s REST API, you can send outgoing SMS messages from your BatchPack phone number to mobile phones around the globe.</p>
+<p>Using BatchPack&#39;s REST API, you can send outgoing SMS messages from your BatchPack senderId to any phone number across the globe.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/company/send_message/BTOKEN</code></p>
+<p><code>POST https://api.batchpack.co/v1/company/send_message/BTOKEN</code></p>
 <h3 id='query-parameters'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -359,7 +359,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 <tr>
 <td>fromPhoneNumber</td>
 <td>true</td>
-<td>Your BatchPack phone number or senderID</td>
+<td>Your BatchPack senderID</td>
 </tr>
 <tr>
 <td>toPhoneNumber</td>
@@ -374,9 +374,9 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </tbody></table>
 
 <aside class="success">
-  Remember — BatchPack give you 15 fress SMS
+  Signup — BatchPack give you a $1 credit for SMS
 </aside>
-<h2 id='create-sender-id'>Create Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
+<h2 id='create-sender-id'>Create Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages"}'</span> <span class="se">\</span>
 -X POST
@@ -396,7 +396,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </span></code></pre>
 <p>Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs may be used at no additional cost when sending an SMS to countries that support this feature.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/company/buy_sender_id/BTOKEN</code></p>
+<p><code>POST https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -413,7 +413,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 <td>Any thing random</td>
 </tr>
 </tbody></table>
-<h2 id='list-sender-id'>List Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/company/list_sender_id/BTOKEN"</span> <span class="se">\</span>
+<h2 id='list-sender-id'>List Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/list_sender_id/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -442,10 +442,10 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </span></code></pre>
 <p>Use this endpoint to get all available sender ID</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/company/list_sender_id/BTOKEN</code></p>
+<p><code>POST https://api.batchpack.co/v1/company/list_sender_id/BTOKEN</code></p>
 
 <p>This endpoint retruns an array of all the sms sent </p>
-<h2 id='list-all-sms'>List All SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/company/view_messages/BTOKEN"</span> <span class="se">\</span>
+<h2 id='list-all-sms'>List All SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/view_messages/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -482,8 +482,8 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 
 <p>You only need to supply the unique client id that was returned upon creation.</p>
 <h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET https://server.batchpack.co/v1/company/view_messages/BTOKEN</code></p>
-<h1 id='batchpack-verify'>BatchPack Verify</h1><h2 id='create-a-verify-app'>Create a Verify APP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/verify/creat_app/BTOKEN"</span> <span class="se">\</span>
+<p><code>GET https://api.batchpack.co/v1/company/view_messages/BTOKEN</code></p>
+<h1 id='batchpack-verify'>BatchPack Verify</h1><h2 id='create-a-verify-app'>Create a Verify APP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/creat_app/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"appname": "Verify App", "comments": "DIGITALOCEAN"}'</span> <span class="se">\</span>
 -X POST
@@ -502,7 +502,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </span></code></pre>
 <p>As part of BatchPack&#39;s account security offerings, the BatchPack Verify API makes it simple to add phone verification to your web and mobile application. It supports codes sent via and SMS. To start working with the API, first create an application with the endpoint below.</p>
 <h3 id='http-request-5'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/verify/creat_app/BTOKEN</code></p>
+<p><code>POST https://api.batchpack.co/v1/verify/creat_app/BTOKEN</code></p>
 <h3 id='query-parameters-2'>Query Parameters</h3>
 <table><thead>
 <tr>
@@ -526,7 +526,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 <aside class="success">
   BatchPack Help You do anything SMS
 </aside>
-<h2 id='send-otp'>Send OTP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/verify/initiate_otp/BTOKEN"</span> <span class="se">\</span>
+<h2 id='send-otp'>Send OTP</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"phone": "9087656788", "countryCode": "+1", "verifyApp": "GOOG"}'</span> <span class="se">\</span>
 -X POST
@@ -543,7 +543,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 
 <p><img src="images/goog.jpeg" alt="Goog" /></p>
 <h3 id='http-request-6'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/verify/initiate_otp/BTOKEN</code></p>
+<p><code>POST https://api.batchpack.co/v1/verify/initiate_otp/BTOKEN</code></p>
 <h3 id='url-parameters-2'>URL Parameters</h3>
 <table><thead>
 <tr>
@@ -568,7 +568,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 <td>The name of the app to use for verification</td>
 </tr>
 </tbody></table>
-<h2 id='complete-verification'>Complete Verification</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/verify/verify_otp/BTOKEN"</span> <span class="se">\</span>
+<h2 id='complete-verification'>Complete Verification</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/verify/verify_otp/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"phone": "9087656788", "otp": "39751"}'</span> <span class="se">\</span>
 -X POST
@@ -583,8 +583,8 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </span></code></pre>
 <p>Complete verification api checks if the user’s input matches the code. If they match, Verify registers the phone number as approved.</p>
 <h3 id='http-request-7'>HTTP Request</h3>
-<p><code>POST https://server.batchpack.co/v1/verify/verify_otp/BTOKEN</code></p>
-<h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://server.batchpack.co/v1/company/get_balances/BTOKEN"</span> <span class="se">\</span>
+<p><code>POST https://api.batchpack.co/v1/verify/verify_otp/BTOKEN</code></p>
+<h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/get_balances/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -598,7 +598,7 @@ curl <span class="s2">"https://server.batchpack.co/v1/example_endpoint/BTOKEN"</
 </span></code></pre>
 <p>Check available Balance on your BatchPack&#39;s account</p>
 <h3 id='http-request-8'>HTTP Request</h3>
-<p><code>GET https://server.batchpack.co/v1/verify/creat_app/BTOKEN</code></p>
+<p><code>GET https://api.batchpack.co/v1/verify/creat_app/BTOKEN</code></p>
 
 <aside class="success">
   BatchPack Help You do anything SMS
