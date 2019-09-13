@@ -203,7 +203,7 @@
   <script src="javascripts/all.js"></script>
 </head>
 
-<body class="index" data-languages="[&quot;Curl&quot;]">
+<body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
   <a href="#" id="nav-button">
     <span>
       NAV
@@ -232,7 +232,8 @@
     </div>
 
     <div class="lang-selector">
-      <a href="#" data-language-name="Curl">Curl</a>
+      <a href="#" data-language-name="shell">shell</a>
+      <a href="#" data-language-name="ruby">ruby</a>
     </div>
     <div class="search">
       <input type="text" class="search" id="input-search" placeholder="Search">
@@ -252,13 +253,21 @@
             <a href="#send-an-sms" class="toc-h2 toc-link" data-title="Send an SMS">Send an SMS</a>
           </li>
           <li>
-            <a href="#create-sender-id" class="toc-h2 toc-link" data-title="Create Sender ID">Create Sender ID</a>
+            <a href="#list-all-sms" class="toc-h2 toc-link" data-title="List All SMS">List All SMS</a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <a href="#phone-number-amp-senderid" class="toc-h1 toc-link" data-title="Phone Number &amp; SenderID">Phone Number &amp; SenderID</a>
+        <ul class="toc-list-h2">
+          <li>
+            <a href="#check-available-number" class="toc-h2 toc-link" data-title="Check Available Number">Check Available Number</a>
+          </li>
+          <li>
+            <a href="#phone-number-amp-sender-id" class="toc-h2 toc-link" data-title="Phone Number &amp; Sender ID">Phone Number &amp; Sender ID</a>
           </li>
           <li>
             <a href="#list-sender-id" class="toc-h2 toc-link" data-title="List Sender ID">List Sender ID</a>
-          </li>
-          <li>
-            <a href="#list-all-sms" class="toc-h2 toc-link" data-title="List All SMS">List All SMS</a>
           </li>
         </ul>
       </li>
@@ -292,7 +301,14 @@
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
+<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
+<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
+    <span class="n">initBatchpPack</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/send_message/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">initBatchpPack</span>
+</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</span>
 -H <span class="s2">"apikey: API_KEY"</span>
 </code></pre>
@@ -310,11 +326,19 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <aside class="notice">
   You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials from your profile page
 </aside>
-<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/send_message/BTOKEN"</span> <span class="se">\</span>
+<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
+<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
+    <span class="n">triggerSms</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/send_message/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:body</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"fromPhoneNumber"</span><span class="p">:</span> <span class="s2">"BATCHPACK"</span><span class="p">,</span> <span class="s2">"toPhoneNumber"</span><span class="p">:</span> <span class="o">+</span><span class="mi">15467876786</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Hi There, Thanks!"</span><span class="p">,</span> <span class="s2">"callback"</span><span class="p">:</span> <span class="s2">"https://9dcc0399.ngrok.io/v1/post/wehbook"</span><span class="p">},</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">triggerSms</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/send_message/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
--d <span class="s1">'{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": +15467876786, "message": "Hi There, Thanks!}'</span> <span class="se">\</span>
+-d <span class="s1">'{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": "+15467876786", "message": "Hi There, Thanks!", "callback": "https://9dcc0399.ngrok.io/v1/post/wehbook"}" \
 -X POST
-</code></pre>
+</span></code></pre>
 <blockquote>
 <p>Response:</p>
 </blockquote>
@@ -364,9 +388,86 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <aside class="success">
   Signup — BatchPack give you 15 free SMS on trail
 </aside>
-<h2 id='create-sender-id'>Create Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
+<h2 id='list-all-sms'>List All SMS</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
+<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
+    <span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
+  <span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
+    <span class="n">viewMessage</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/view_messages/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">viewMessage</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/view_messages/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
--d <span class="s1">'{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing"}'</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">122</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem ipsum dolor sit amet adipiscing elits"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2348107176019"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-28T00:48:02.942Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-28T00:48:10.492Z"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMBTP69814227010589869943"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"delivered"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0082"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATCHPACK"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"gatewayKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SM3d67f33020d14870aa2f8ab89876d57e"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"v1"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"timesent"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"messageSegment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"webhook_url"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>You can use BatchPack&#39;s SMS API to retrieve information of an existing outbound SMS message.</p>
+
+<p>You only need to supply the unique client id that was returned upon creation.</p>
+<h3 id='http-request-2'>HTTP Request</h3>
+<p><code>GET https://api.batchpack.co/v1/company/view_messages/BTOKEN</code></p>
+<h1 id='phone-number-amp-senderid'>Phone Number &amp; SenderID</h1><h2 id='check-available-number'>Check Available Number</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/searchNumber/BTOKEN"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+</code></pre>
+<blockquote>
+<p>Response:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="w">
+</span><span class="s2">"available_phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="s2">"friendly_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"(510) 726-9549"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phone_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15107269549"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"lata"</span><span class="p">:</span><span class="w"> </span><span class="s2">"722"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"rate_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OKLD MN-PD"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="s2">"37.800000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="s2">"-122.260000"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"locality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OAKLAND"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CA"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"94615"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"iso_country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"address_requirements"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"beta"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"capabilities"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"voice"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"SMS"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"MMS"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+<p>On BatchPack V1, we currently offer only US numbers. BatchPack phone numbers are immediately purchased when bought, but senderID is not.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>POST https://api.batchpack.co/v1/company/searchNumber/BTOKEN</code></p>
+<h2 id='phone-number-amp-sender-id'>Phone Number &amp; Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
+-H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
+-d <span class="s1">'{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing", "phone": "+15106942131", "rateCenter": "", "region": "LA", "postalCode": "45673"}'</span> <span class="se">\</span>
 -X POST
 </code></pre>
 <blockquote>
@@ -383,8 +484,8 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
   </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs cost $1. Without a verified senderID you may not be able to send a message using batchpack or keep using the default BATCHPACK</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<p>Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs and a custom phone number cost $1.50. Without a verified senderID you may not be able to send a message using your custom senderID but you can continue sending with you already purchased phone number. If you do not have any of the sender number or Alphanumeric ID, you will only be able to send a message using &quot;BATCHPACK&quot; as senderID</p>
+<h3 id='http-request-4'>HTTP Request</h3>
 <p><code>POST https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -409,93 +510,39 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"8909887"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending verification"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="w">
-</span><span class="p">},</span><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AXA"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending verification"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-07-09T07:31:52.627Z"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MMMM"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"senderid_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending Verification"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-05T08:59:22.691Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-09-05T08:59:22.691Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15106620133"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"rate_center"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BELLEFONTN"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AL"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"postal_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"456789"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"address_requirements"</span><span class="p">:</span><span class="w"> </span><span class="s2">"none"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"voice"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sms"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"mms"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"fax"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"lata"</span><span class="p">:</span><span class="w"> </span><span class="s2">"480"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"renewDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-05 09:59:22 +0100"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"numberSid"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"phone_status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
 </span><span class="p">]</span><span class="w">
 </span></code></pre>
 <p>Use this endpoint to get all available sender ID</p>
-<h3 id='http-request-3'>HTTP Request</h3>
+<h3 id='http-request-5'>HTTP Request</h3>
 <p><code>POST https://api.batchpack.co/v1/company/list_sender_id/BTOKEN</code></p>
 
 <p>This endpoint retruns an array of all the sms sent </p>
-<h2 id='list-all-sms'>List All SMS</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/view_messages/BTOKEN"</span> <span class="se">\</span>
--H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
-</code></pre>
-<blockquote>
-<p>Response:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">29</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body is here"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15467889003"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T12:24:19.208Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-26T12:24:20.160Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMBTP53851020260907332328"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sent"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.00"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATCHPACK"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"gatewayKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SM9c5de35906f34b4baf54a7aa995ce3ec"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATCHPACK IS LIVE!!"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15467889003"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-18T12:12:38.394Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-18T12:12:38.394Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMBTP54218325469295552031"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sent"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0041"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MKOBO"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"gatewayKey"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"body is here"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15467889003"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"message_callback"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-18T12:11:29.619Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-18T12:11:29.619Z"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"mesage_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMBTP56530937989743769158"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sent"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0.0041"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MKOBO"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"gatewayKey"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="s2">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"nextPage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre>
-<p>You can use BatchPack&#39;s SMS API to retrieve information of an existing outbound SMS message.</p>
-
-<p>You only need to supply the unique client id that was returned upon creation.</p>
-<h3 id='http-request-4'>HTTP Request</h3>
-<p><code>GET https://api.batchpack.co/v1/company/view_messages/BTOKEN</code></p>
 <h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/get_balances/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
@@ -509,8 +556,8 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Check available Balance on your BatchPack&#39;s account</p>
-<h3 id='http-request-5'>HTTP Request</h3>
-<p><code>GET https://api.batchpack.co/v1/verify/creat_app/BTOKEN</code></p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>GET https://api.batchpack.co/v1/company/get_balances/BTOKEN</code></p>
 
 <aside class="success">
   BatchPack Help You do anything SMS
@@ -557,7 +604,8 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
     </div>
     <div class="dark-box">
       <div class="lang-selector">
-        <a href="#" data-language-name="Curl">Curl</a>
+        <a href="#" data-language-name="shell">shell</a>
+        <a href="#" data-language-name="ruby">ruby</a>
       </div>
     </div>
   </div>
