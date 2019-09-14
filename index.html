@@ -203,7 +203,7 @@
   <script src="javascripts/all.js"></script>
 </head>
 
-<body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;]">
+<body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;]">
   <a href="#" id="nav-button">
     <span>
       NAV
@@ -234,6 +234,7 @@
     <div class="lang-selector">
       <a href="#" data-language-name="shell">shell</a>
       <a href="#" data-language-name="ruby">ruby</a>
+      <a href="#" data-language-name="javascript">javascript</a>
     </div>
     <div class="search">
       <input type="text" class="search" id="input-search" placeholder="Search">
@@ -297,25 +298,23 @@
 <p>Pick the docs that are right for you. These guides, sample app tutorials, and API reference docs will get you across the deploy line, straight to HTTP 200 OK.</p>
 
 <p>You’ve got an idea in mind. Let’s get it to production.</p>
-<h1 id='authentication'>Authentication</h1>
+<pre class="highlight ruby tab-ruby"><code><span class="c1"># To use the BatchPack's api seamlessly in ruby, you must use an http service. Httparty, faraday, etc</span>
+<span class="no">Add</span> <span class="n">gem</span> <span class="s1">'httparty'</span> <span class="n">to</span> <span class="n">your</span> <span class="no">Gemfile</span>
+<span class="n">or</span>
+<span class="c1"># gem install httparty</span>
+</code></pre><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
 <pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
 
-<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
-<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
-    <span class="n">initBatchpPack</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/send_message/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="n">initBatchpPack</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/example_endpoint/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
     <span class="nb">puts</span> <span class="n">initBatchpPack</span>
 </code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</span>
 -H <span class="s2">"apikey: API_KEY"</span>
 </code></pre>
-<blockquote>
-<p>Make sure to keep your <code>BTOKEN</code> &amp; <code>API_KEY</code> save.</p>
-</blockquote>
-
 <p>Before we get started, sign up to BatchPack for free and collect your live API_KEY from the <a href="http://app.batchpack.co">Dashboard</a>.</p>
 
 <p>Next, enter your BTOKEN key at the end of your the url </p>
@@ -323,16 +322,50 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p><code>API_KEY</code> &amp;
 <code>BTOKEN</code></p>
 
+<p>For security reasons, you will need to put this credentials in an .env file and utilize them as an environmental variable <code>ENV[&#39;KEY_NAME&#39;]</code>
 <aside class="notice">
   You must replace <code>API_KEY</code> and <code>BTOKEN</code> with your personal Credentials from your profile page
-</aside>
-<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+</aside></p>
 
-<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
-<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
-    <span class="n">triggerSms</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/send_message/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+<blockquote>
+<p>Send Message:</p>
+</blockquote>
+<h1 id='programmatic-sms'>Programmatic SMS</h1><h2 id='send-an-sms'>Send an SMS</h2><pre class="highlight javascript tab-javascript"><code>
+<span class="c1">// SEND SMS</span>
+<span class="kr">const</span> <span class="nx">sendSms</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<span class="kr">const</span> <span class="nx">requestBody</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">fromPhoneNumber</span><span class="p">:</span> <span class="s2">"BATCHPACK"</span><span class="p">,</span>
+    <span class="na">toPhoneNumber</span><span class="p">:</span> <span class="s2">"+23481********"</span><span class="p">,</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s2">"This is the second JS test text"</span>
+  <span class="p">};</span>
+  <span class="nx">axios</span>
+    <span class="p">.</span><span class="nx">post</span><span class="p">(</span>
+      <span class="s2">`https://api.batchpack.co/v1/company/send_message/</span><span class="p">${</span><span class="nx">ENV</span><span class="p">[</span><span class="s1">'BTOKEN'</span><span class="p">]}</span><span class="s2">`</span><span class="p">,</span>
+      <span class="nx">requestBody</span><span class="p">,</span>
+      <span class="p">{</span>
+        <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+          <span class="na">apikey</span><span class="p">:</span> <span class="nx">ENV</span><span class="p">[</span><span class="s1">'API_KEY'</span><span class="p">],</span>
+          <span class="na">Accept</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
+          <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// DO WHAT YOU WANT WITH API RESPONSE DATA</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">response</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// Log response error</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">sendSms</span><span class="p">();</span>
+</code></pre><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+    <span class="n">triggerSms</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/send_message/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
       <span class="ss">:body</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"fromPhoneNumber"</span><span class="p">:</span> <span class="s2">"BATCHPACK"</span><span class="p">,</span> <span class="s2">"toPhoneNumber"</span><span class="p">:</span> <span class="o">+</span><span class="mi">15467876786</span><span class="p">,</span> <span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Hi There, Thanks!"</span><span class="p">,</span> <span class="s2">"callback"</span><span class="p">:</span> <span class="s2">"https://9dcc0399.ngrok.io/v1/post/wehbook"</span><span class="p">},</span>
-      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
     <span class="nb">puts</span> <span class="n">triggerSms</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/send_message/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
@@ -346,13 +379,13 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
   </span><span class="s2">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
   </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TESTINGL"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2348098151010"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1598151010"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"sent_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28 August 2019"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"message_refernce"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SMBTP29365527724837165981"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"sending"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"unit"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USD"</span><span class="p">,</span><span class="w">
   </span><span class="s2">"send_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BATCHPACK"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NG"</span><span class="w">
+  </span><span class="s2">"countryCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="w">
 </span><span class="p">},</span><span class="w">
 </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message queued"</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -388,14 +421,14 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <aside class="success">
   Signup — BatchPack give you 15 free SMS on trail
 </aside>
+
+<blockquote>
+<p>Get all Messages:</p>
+</blockquote>
 <h2 id='list-all-sms'>List All SMS</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
 
-<span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
-<span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
-    <span class="n">apiKey</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"APIK_KEY"</span><span class="p">]</span>
-  <span class="n">bToken</span> <span class="o">=</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span>
-    <span class="n">viewMessage</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/view_messages/</span><span class="si">#{</span><span class="n">bToken</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="n">apiKey</span><span class="p">,</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="n">viewMessage</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/view_messages/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
     <span class="nb">puts</span> <span class="n">viewMessage</span>
 </code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/view_messages/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
@@ -409,7 +442,7 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
         </span><span class="p">{</span><span class="w">
       </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">122</span><span class="p">,</span><span class="w">
       </span><span class="s2">"message_body"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Lorem ipsum dolor sit amet adipiscing elits"</span><span class="p">,</span><span class="w">
-      </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+2348107176019"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"receiver_number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+1598151010"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">17</span><span class="p">,</span><span class="w">
       </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-28T00:48:02.942Z"</span><span class="p">,</span><span class="w">
       </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-28T00:48:10.492Z"</span><span class="p">,</span><span class="w">
@@ -432,7 +465,16 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p>You only need to supply the unique client id that was returned upon creation.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
 <p><code>GET https://api.batchpack.co/v1/company/view_messages/BTOKEN</code></p>
-<h1 id='phone-number-amp-senderid'>Phone Number &amp; SenderID</h1><h2 id='check-available-number'>Check Available Number</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/searchNumber/BTOKEN"</span> <span class="se">\</span>
+
+<blockquote>
+<p>Available Number:</p>
+</blockquote>
+<h1 id='phone-number-amp-senderid'>Phone Number &amp; SenderID</h1><h2 id='check-available-number'>Check Available Number</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+    <span class="n">searchNumber</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/searchNumber/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">searchNumber</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/searchNumber/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -465,7 +507,17 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p>On BatchPack V1, we currently offer only US numbers. BatchPack phone numbers are immediately purchased when bought, but senderID is not.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://api.batchpack.co/v1/company/searchNumber/BTOKEN</code></p>
-<h2 id='phone-number-amp-sender-id'>Phone Number &amp; Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
+
+<blockquote>
+<p>Buy Phone Number:</p>
+</blockquote>
+<h2 id='phone-number-amp-sender-id'>Phone Number &amp; Sender ID</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+    <span class="n">buyNumber</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:body</span> <span class="o">=&gt;</span> <span class="p">{</span><span class="s2">"senderId"</span><span class="p">:</span> <span class="s2">"COCACOLA"</span><span class="p">,</span> <span class="s2">"comments"</span><span class="p">:</span> <span class="s2">"My new sms id for promotional messages"</span><span class="p">,</span> <span class="s2">"category"</span><span class="p">:</span> <span class="s2">"Marketing"</span><span class="p">,</span> <span class="s2">"phone"</span><span class="p">:</span> <span class="s2">"+15106942131"</span><span class="p">,</span> <span class="s2">"rateCenter"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span> <span class="s2">"region"</span><span class="p">:</span> <span class="s2">"LA"</span><span class="p">,</span> <span class="s2">"postalCode"</span><span class="p">:</span> <span class="s2">"45673"</span><span class="p">},</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">buyNumber</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/buy_sender_id/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"senderId": "COCACOLA", "comments": "My new sms id for promotional messages", "category": "Marketing", "phone": "+15106942131", "rateCenter": "", "region": "LA", "postalCode": "45673"}'</span> <span class="se">\</span>
 -X POST
@@ -474,14 +526,19 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p>Response:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"sender_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SAM"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My new sms id for promotional messages"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending Verification"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-22T07:40:39.473Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"updated_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-08-22T07:40:39.473Z"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="w">
+  </span><span class="s2">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"senderId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MMMMM"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"+15106942131"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"senderidStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending Verification"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"region"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AL"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"smsUsage"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"amount"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1.5"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"renewaldate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2019-10-05"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"phoneNumberStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Active"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"numberCenter"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BELLEFONTN"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"category"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Marketing"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"commens"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is my first sender id"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Alphanumeric sender IDs are used for branded one-way messaging. Alphanumeric sender IDs and a custom phone number cost $1.50. Without a verified senderID you may not be able to send a message using your custom senderID but you can continue sending with you already purchased phone number. If you do not have any of the sender number or Alphanumeric ID, you will only be able to send a message using &quot;BATCHPACK&quot; as senderID</p>
@@ -503,7 +560,16 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <td>Any thing random</td>
 </tr>
 </tbody></table>
-<h2 id='list-sender-id'>List Sender ID</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/list_sender_id/BTOKEN"</span> <span class="se">\</span>
+
+<blockquote>
+<p>List Sender ID:</p>
+</blockquote>
+<h2 id='list-sender-id'>List Sender ID</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+    <span class="n">listID</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/list_sender_id/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">listID</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/list_sender_id/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -543,7 +609,16 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p><code>POST https://api.batchpack.co/v1/company/list_sender_id/BTOKEN</code></p>
 
 <p>This endpoint retruns an array of all the sms sent </p>
-<h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/get_balances/BTOKEN"</span> <span class="se">\</span>
+
+<blockquote>
+<p>Check Balance:</p>
+</blockquote>
+<h1 id='billing'>Billing</h1><h2 id='check-balance'>Check Balance</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s2">"httparty"</span>
+
+    <span class="n">checkBalance</span> <span class="o">=</span> <span class="no">HTTParty</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"https://api.batchpack.co/v1/company/get_balances/</span><span class="si">#{</span><span class="no">ENV</span><span class="p">[</span><span class="s2">"BTOKEN"</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+      <span class="ss">:headers</span> <span class="o">=&gt;</span> <span class="p">{</span> <span class="s2">"apikey"</span><span class="o">=&gt;</span> <span class="no">ENV</span><span class="p">[</span><span class="s2">"API_KEY"</span><span class="p">],</span> <span class="s2">"content-type"</span> <span class="o">=&gt;</span> <span class="s2">"application/json"</span><span class="p">})</span>
+    <span class="nb">puts</span> <span class="n">checkBalance</span>
+</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://api.batchpack.co/v1/company/get_balances/BTOKEN"</span> <span class="se">\</span>
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 </code></pre>
 <blockquote>
@@ -560,7 +635,7 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 <p><code>GET https://api.batchpack.co/v1/company/get_balances/BTOKEN</code></p>
 
 <aside class="success">
-  BatchPack Help You do anything SMS
+  BatchPack Help You do anything Message
 </aside>
 <h1 id='errors'>Errors</h1>
 <aside class="notice">
@@ -569,6 +644,44 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 
 <p>The BatchPack API uses the following error codes:</p>
 
+<blockquote>
+<p>Gateway Responses:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="err">//</span><span class="w"> </span><span class="err">message</span><span class="w"> </span><span class="err">queued</span><span class="w"> </span><span class="err">for</span><span class="w"> </span><span class="err">sending</span><span class="w"> 
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"message queued"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">insufficinet</span><span class="w"> </span><span class="err">funds</span><span class="w"> </span><span class="err">to</span><span class="w"> </span><span class="err">send</span><span class="w"> </span><span class="err">message</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Insufficient funds"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">Resouces</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">available</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">used</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unavailable"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">Invalid</span><span class="w"> </span><span class="err">resource</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">have</span><span class="w"> </span><span class="err">none</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"create ID"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">downtime</span><span class="w"> </span><span class="err">from</span><span class="w"> </span><span class="err">sms</span><span class="w"> </span><span class="err">servcer</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unprocessable entity"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">phone</span><span class="w"> </span><span class="err">number</span><span class="w"> </span><span class="err">not</span><span class="w"> </span><span class="err">valid</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"invalid number"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="err">//</span><span class="w"> </span><span class="err">Using</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">resource</span><span class="w"> </span><span class="err">that</span><span class="w"> </span><span class="err">has</span><span class="w"> </span><span class="err">already</span><span class="w"> </span><span class="err">been</span><span class="w"> </span><span class="err">used</span><span class="w">
+</span><span class="p">{</span><span class="w">
+    </span><span class="s2">"gatewayResponse"</span><span class="p">:</span><span class="w"> </span><span class="s2">"No user rights"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
 <table><thead>
 <tr>
 <th>Error Code</th>
@@ -585,7 +698,7 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden -- The request requested is hidden for administrators only.</td>
+<td>Forbidden -- The request requested is not available.</td>
 </tr>
 <tr>
 <td>404</td>
@@ -606,6 +719,7 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
       <div class="lang-selector">
         <a href="#" data-language-name="shell">shell</a>
         <a href="#" data-language-name="ruby">ruby</a>
+        <a href="#" data-language-name="javascript">javascript</a>
       </div>
     </div>
   </div>
