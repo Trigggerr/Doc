@@ -203,7 +203,7 @@
   <script src="javascripts/all.js"></script>
 </head>
 
-<body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;]">
+<body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;javascript&quot;,&quot;python&quot;]">
   <a href="#" id="nav-button">
     <span>
       NAV
@@ -235,6 +235,7 @@
       <a href="#" data-language-name="shell">shell</a>
       <a href="#" data-language-name="ruby">ruby</a>
       <a href="#" data-language-name="javascript">javascript</a>
+      <a href="#" data-language-name="python">python</a>
     </div>
     <div class="search">
       <input type="text" class="search" id="input-search" placeholder="Search">
@@ -302,6 +303,11 @@
 <span class="no">Add</span> <span class="n">gem</span> <span class="s1">'httparty'</span> <span class="n">to</span> <span class="n">your</span> <span class="no">Gemfile</span>
 <span class="n">or</span>
 <span class="c1"># gem install httparty</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="c"># To use the BatchPack's api seamlessly in python</span>
+ <span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span>
+<span class="c"># and import the following</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">json</span>
 </code></pre><h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>To authorize, use this code:</p>
@@ -314,6 +320,15 @@
 </code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
 curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</span>
 -H <span class="s2">"apikey: API_KEY"</span>
+</code></pre><pre class="highlight python tab-python"><code><span class="k">def</span> <span class="nf">sendMessage</span><span class="p">():</span>
+    <span class="n">api_endpoint</span> <span class="o">=</span> <span class="s">"https://api.batchpack.co/v1/company/example_endpoint/#BTOKEN"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'fromPhoneNumber'</span><span class="p">:</span> <span class="n">SENDER_ID</span><span class="p">,</span>
+            <span class="s">'toPhoneNumber'</span><span class="p">:</span> <span class="s">"+145678088"</span><span class="p">,</span> <span class="s">'message'</span><span class="p">:</span> <span class="s">"The Message Body"</span><span class="p">}</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+               <span class="s">'apikey'</span><span class="p">:</span> <span class="n">API_KEY</span><span class="p">}</span>
+<span class="n">sendMessage</span><span class="p">()</span>
+
 </code></pre>
 <p>Before we get started, sign up to BatchPack for free and collect your live API_KEY from the <a href="http://app.batchpack.co">Dashboard</a>.</p>
 
@@ -371,7 +386,26 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
 -H <span class="s2">"apikey: API_KEY"</span> <span class="se">\</span>
 -d <span class="s1">'{"fromPhoneNumber": "BATCHPACK", "toPhoneNumber": "+15467876786", "message": "Hi There, Thanks!", "callback": "https://9dcc0399.ngrok.io/v1/post/wehbook"}" \
 -X POST
-</span></code></pre>
+</span></code></pre><pre class="highlight python tab-python"><code><span class="c"># Copy your API_KEY, BTOKEN, and SENDER_ID from your dashboard page</span>
+<span class="k">def</span> <span class="nf">sendMessage</span><span class="p">():</span>
+    <span class="n">api_endpoint</span> <span class="o">=</span> <span class="s">"https://api.batchpack.co/v1/company/send_message/#BTOKEN"</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s">'fromPhoneNumber'</span><span class="p">:</span> <span class="n">SENDER_ID</span><span class="p">,</span>
+            <span class="s">'toPhoneNumber'</span><span class="p">:</span> <span class="s">"+2348107176019"</span><span class="p">,</span> <span class="s">'message'</span><span class="p">:</span> <span class="s">"The Message Body"</span><span class="p">}</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Content-Type'</span><span class="p">:</span> <span class="s">'application/json'</span><span class="p">,</span>
+               <span class="s">'apikey'</span><span class="p">:</span> <span class="n">API_KEY</span><span class="p">}</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+            <span class="n">api_endpoint</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">),</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+
+<span class="n">sendMessage</span><span class="p">()</span>
+</code></pre>
 <blockquote>
 <p>Response:</p>
 </blockquote>
@@ -720,6 +754,7 @@ curl <span class="s2">"https://api.batchpack.co/v1/example_endpoint/BTOKEN"</spa
         <a href="#" data-language-name="shell">shell</a>
         <a href="#" data-language-name="ruby">ruby</a>
         <a href="#" data-language-name="javascript">javascript</a>
+        <a href="#" data-language-name="python">python</a>
       </div>
     </div>
   </div>
